@@ -1,0 +1,138 @@
+board: "Sid ESP32 Controller V1"
+name: "DIY CNC Machine"
+meta: "Sid Skiba 12-04-2023 Rev 1"
+
+arc_tolerance_mm: 0.002
+junction_deviation_mm: 0.010
+verbose_errors: false
+report_inches: false
+enable_parking_override_control: false
+use_line_numbers: false
+planner_blocks: 16
+
+start:
+  must_home: true
+  deactivate_parking: false
+  check_limits: false
+
+stepping:
+  engine: RMT
+  idle_ms: 255
+  pulse_us: 3
+  dir_delay_us: 5
+  disable_delay_us: 0
+  segments: 12
+
+axes:
+  shared_stepper_disable_pin: gpio.4:high
+  
+  x:
+    steps_per_mm: 252.102
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 500
+    soft_limits: true
+    homing:
+      cycle: 2
+      allow_single_axis: true
+      positive_direction: false
+      mpos_mm: 0.000
+      seek_mm_per_min: 800
+      feed_mm_per_min: 50
+      seek_scaler: 1.1
+      feed_scaler: 1.1
+  
+    motor0:
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: NO_PIN
+      limit_all_pin: gpio.36:high
+      hard_limits: true
+      pulloff_mm: 2.000
+      standard_stepper:
+        step_pin: gpio.23
+        direction_pin: gpio.22
+        disable_pin: NO_PIN
+
+  y:
+    steps_per_mm: 252.102
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 300
+    soft_limits: true
+    homing:
+      cycle: 2
+      allow_single_axis: true
+      positive_direction: true
+      mpos_mm: 0.000
+      seek_mm_per_min: 800
+      feed_mm_per_min: 50
+      seek_scaler: 1.1
+      feed_scaler: 1.1
+
+    motor0:
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: NO_PIN
+      limit_all_pin: gpio.39:high
+      hard_limits: true
+      pulloff_mm: 1.000
+      standard_stepper:
+        step_pin: gpio.21
+        direction_pin: gpio.19
+        disable_pin: NO_PIN
+
+  z:
+    steps_per_mm: 121.181
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 69
+    soft_limits: true
+    homing:
+      cycle: 2
+      allow_single_axis: true
+      positive_direction: true
+      mpos_mm: 0.000
+      seek_mm_per_min: 200
+      feed_mm_per_min: 50
+      seek_scaler: 1.1
+      feed_scaler: 1.1
+
+    motor0:
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: gpio.34:high
+      limit_all_pin: NO_PIN
+      hard_limits: true
+      pulloff_mm: 1.000
+      standard_stepper:
+        step_pin: gpio.18
+        direction_pin: gpio.5
+        disable_pin: NO_PIN
+
+coolant:
+  flood_pin: gpio.33:low
+
+probe:
+  pin: gpio.32:low:pu
+
+control:
+  safety_door_pin: NO_PIN
+  reset_pin: gpio.13:low:pu
+  feed_hold_pin: gpio.14:low:pu
+  cycle_start_pin: gpio.12:low:pu
+  macro0_pin: NO_PIN
+  macro1_pin: NO_PIN
+  macro2_pin: NO_PIN
+  macro3_pin: NO_PIN
+  fault_pin: NO_PIN
+  estop_pin: NO_PIN
+
+PWM:
+  pwm_hz: 3000
+  output_pin: gpio.15
+  enable_pin: gpio.2:low
+  direction_pin: NO_PIN
+  disable_with_s0: false
+  s0_with_disable: true
+  spinup_ms: 1000
+  spindown_ms: 1000
+  tool_num: 0
+  speed_map: 0=0% 1000=100%
